@@ -9,8 +9,31 @@
 import SwiftUI
 
 struct ContentView: View {
+
+    @ObservedObject var pedometer = MyPedometer()
+    
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            if self.pedometer.isWalking {
+                Text("WALKING")
+            } else {
+                Text("STOPPED")
+            }
+            Text("\(self.pedometer.count)")
+            Button(action: {
+                if !self.pedometer.isStarted {
+                    self.pedometer.start()
+                } else {
+                    self.pedometer.stop()
+                }
+            }) {
+                if !self.pedometer.isStarted {
+                    Text("スタート")
+                } else {
+                    Text("ストップ")
+                }
+            }
+        }
     }
 }
 
